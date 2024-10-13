@@ -1,6 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const authRoutes = require('./routes/auth');
+
 
 dotenv.config();
 
@@ -15,12 +17,19 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
   .catch((err) => console.log(err));
 
 
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', authRoutes);
+
+app.use((req, res, next) => {
+  console.log(`Recebendo ${req.method} na URL: ${req.url}`);
+  next();
+});
 
 // Rotas básicas
 app.get('/', (req, res) => {
   res.send('API Running');
 });
+
+
 
 const PORT = process.env.PORT || 5000;
 
