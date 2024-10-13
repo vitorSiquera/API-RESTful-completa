@@ -75,7 +75,7 @@ Opa, e aí! Esse projeto é uma API RESTful com autenticação de usuários, usa
 
 Exemplo de uma rota privada que requer um token JWT para acesso:
 
-- **GET** `/api/private`: Retorna informações privadas.
+- **GET** `/api/auth/private`: Retorna informações privadas.
   - Adicione o token JWT no header:
     ```
     Authorization: Bearer <seu-token-jwt>
