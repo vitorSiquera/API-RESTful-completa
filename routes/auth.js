@@ -2,12 +2,16 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User'); // Certifique-se de importar o modelo de usuário
 const { register, login } = require('../controllers/authController');
-
+const auth = require('../middlewares/auth')
 
 router.post('/register', register);
 
 
 router.post('/login', login);
+
+router.get('/private', auth, (req, res) => {
+    res.json({ msg: 'Acesso autorizado à rota privada' });
+});
 
 
 
@@ -20,6 +24,8 @@ router.get('/users', async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 });
+
+
 
 
 router.put('/users/:id', async (req, res) => {
